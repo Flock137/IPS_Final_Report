@@ -1,0 +1,356 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% COMPREHENSIVE MIDTERM REPORT - INTELLIGENT PHYSICAL SYSTEMS
+% Author: Gemini AI based on provided documents
+% Date: November 7, 2025
+% Version: 5.0 (Final Corrected Version with all Sections)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[12pt, a4paper, english]{article}
+
+%=============== REQUIRED PACKAGES ===============
+% --- General Packages ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+% --- Formatting Packages based on Requirements ---
+\usepackage[margin=2.5cm, headheight=15pt]{geometry} % Margins: 2.5 cm on all sides
+\usepackage{newtxtext, newtxmath} % Font: Times New Roman
+\usepackage{setspace} % Line Spacing: 1.5
+
+% --- Utility Packages ---
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{tabularx}
+\usepackage{booktabs} % For professional tables
+\usepackage{siunitx} % For SI units
+
+%=============== PAGE STYLE CONFIGURATION ===============
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Intelligent Physical Systems (ELEC3080) - Final Report}
+\fancyhead[R]{Group 2}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+%=============== METADATA CONFIGURATION ===============
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Comprehensive Midterm Report - Intelligent Physical System},
+    pdfauthor={Group 2},
+    pdfsubject={Quadcopter Design Project},
+    pdfkeywords={Quadcopter, Drone, FEA, ANSYS, Carbon Fiber, Intelligent Physical System, VinUniversity},
+    bookmarks=true
+}
+
+%=============== TITLE PAGE ===============
+\title{
+    \vspace{2cm}
+    \textbf{Design and Development of a Payload-Capable Quadcopter System}\\
+    \large Course: Intelligent Physical System (ELEC3080)
+    \vspace{2cm}
+}
+\author{
+    \textbf{Group 2:}\\
+    Le Quang Nhat (ID: V202301169) \\
+    Duong Nghiep Quy (ID: V202300987) \\
+    Dinh Thanh Ha (ID: V202301172) \\
+    Truong Minh Nhat (ID: V202401733)
+}
+\date{\textbf{January 14, 2026}}
+
+%=============== BEGIN DOCUMENT ===============
+\begin{document}
+\onehalfspacing % Set line spacing to 1.5
+
+\maketitle
+\thispagestyle{empty}
+
+%=============== ABSTRACT ===============
+\begin{abstract}
+\noindent This report details the process in the design of a quadcopter for the ELEC3080 course. The primary design goal is to develop a stable aerial platform capable of carrying a 0.5 kg payload with a flight endurance of 12-15 minutes. Our methodology integrates theoretical principles with practical engineering, beginning with computer-aided design (CAD) for the airframe, followed by comprehensive validation using Finite Element Analysis (FEA) to ensure structural integrity, dynamic stability, and crashworthiness. This virtual prototyping phase has yielded a robust and lightweight carbon fiber frame design. The expected outcome of this project is a fully operational quadcopter that meets all specified performance requirements, serving as a validated application of mechatronic and embedded systems design principles.
+\end{abstract}
+
+\newpage
+\tableofcontents
+\thispagestyle{empty}
+\newpage
+
+%=============== SECTION 1: INTRODUCTION ===============
+\section{Introduction}
+\pagestyle{fancy}
+\subsection{Project Context and Objectives}
+In the rapidly advancing field of unmanned aerial vehicle (UAV) technology, quadcopters have demonstrated immense potential across various sectors, including surveillance, smart agriculture, logistics, and cinematography. This project focuses on the comprehensive design, development, and fabrication of a complete quadcopter system. The goal is not only to achieve specific performance benchmarks but also to optimize the system in terms of structural design, material selection, and control algorithms.
+
+The core objective of this project is to build a quadcopter capable of carrying a minimum payload of \SI{0.5}{\kilo\gram}, achieving a target flight time of 12-15 minutes, and operating stably at a target altitude of \SI{50}{\meter}. To accomplish this, our team has undertaken extensive research into the principles of aerodynamics, flight mechanics, electronic component selection, frame design, and control algorithm development.
+\section{Work Distribution}
+
+To ensure efficient progress and leverage individual expertise, project tasks were clearly distributed among the group members. The roles and primary contributions for the design phase are as follows:
+
+\begin{itemize}
+    \item \textbf{Le Quang Nhat:} Responsible for the analysis and design of the \textbf{Power Management System} and serial bus communication protocols.
+
+    \item \textbf{Duong Nghiep Quy:} Led the \textbf{Electronics Integration Plan} and software architecture design, with a focus on sensor stability and implementing an interrupt-driven system.
+
+    \item \textbf{Dinh Thanh Ha:} In charge of all \textbf{Structural Analysis and Simulation}. This involved performing Static, Modal, and Explicit Dynamics analyses in ANSYS to validate the frame's integrity.
+
+    \item \textbf{Truong Minh Nhat:} Responsible for all \textbf{Mechanical and Frame Design}, including the complete Computer-Aided Design (CAD) of the frame, arms, and landing gear.
+\end{itemize}
+
+All group members will collaboratively participate in the upcoming assembly, software implementation, PID tuning, and flight testing phases.
+
+
+
+%=============== SECTION 2: REQUIREMENTS AND SPECIFICATIONS ===============
+\section{Requirements and Specifications}
+\subsection{Performance Requirements}
+
+\begin{table}[H]
+    \centering
+    \caption{Quadcopter Performance Requirements}
+    \label{tab:performance_reqs}
+    \begin{tabularx}{0.85\textwidth}{X l}
+        \toprule
+        \textbf{Parameter} & \textbf{Specification} \\
+        \midrule
+        Minimum Payload & \SI{0.5}{\kilo\gram} (\SI{500}{\gram}) \\
+        Minimum Flight Time & 8 minutes \\
+        Target Flight Time & 12-15 minutes \\
+        Target Flight Height & \SI{50}{\meter} \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\subsection{Component Specifications}
+\subsubsection{Frame Specifications}
+
+
+\begin{table}[H]
+    \centering
+    \caption{Projected Frame Specifications}
+    \label{tab:frame_specs}
+    \begin{tabularx}{0.85\textwidth}{X l}
+        \toprule
+        \textbf{Parameter} & \textbf{Details} \\
+        \midrule
+        Layout & X-configuration Quadcopter \\
+        Material & Carbon Fiber (230 GPa) \\
+        Wheelbase & \SI{320}{\milli\meter} \\
+        Estimated Mass & \SI{450}{\gram} (conservative) \\
+        Motor Mount Pattern & 19 mm $\times$ 19 mm \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\textbf{Justification:} Carbon fiber was chosen for its superior strength-to-weight ratio, high stiffness (which reduces vibrations), and better crash resistance compared to 3D-printed plastics.
+
+\subsubsection{Propeller Specifications}
+\begin{table}[H]
+    \centering
+    \caption{Propeller Specifications}
+    \label{tab:prop_specs}
+    \begin{tabularx}{0.85\textwidth}{X l}
+        \toprule
+        \textbf{Parameter} & \textbf{Details} \\
+        \midrule
+        Size & 6 inch (\SI{152.4}{\milli\meter}) \\
+        Type & Tri-blade \\
+        Pitch & 3.0 - 3.5 inch \\
+        Recommended Models & Gemfan 6x3, HQ 6x3.5 tri-blade \\
+        Total Props Mass & \SI{22.0}{\gram} (4 $\times$ 5.5 g) \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\textbf{Rationale:} Tri-blade propellers offer more static thrust and stability compared to two-blade designs, making them ideal for carrying payloads.
+
+%=============== SECTION 3: FRAME DESIGN AND SIMULATION ===============
+\section{Frame Design and Detailed Simulation}
+\subsection{Inspiration and initial design}
+The frame of the drone is the structure that supports and integrates all components. Thus, the frame design is crucial to the drone's success. There are three basic frame designs to choose from: X, H, and a hybrid of the two, each with its own advantages and disadvantages. We took many inspirations for the frame design from online to help with our own design, many of which were incorporated, such as separable arms and body
+\subsection{CAD Design Process}
+The frame was designed in CAD by Truong Minh Nhat. An X-frame configuration was chosen to maximize motor arm length for stability and minimize weight. The design features a 323mm wheelbase with 4 arms that are detachable from the rest of the drone for convenient fixing of isolated issues in motors or structural damage. 
+ 
+Because of the lightweight and stable nature of the X-frame design, it can suffer from poor landing more than other designs because of it rigid design. Without proper landing gear, the drone can suffer heavy damage even from a field test alone. To counteract this weakness, a two-part 3D-printed landing gear (PLA top, TPU bottom) is used for rigidity and shock absorption. 
+
+After the initial design, several modifications were made using the feedback from peers and professors to optimize the arm structure for weight reduction without compromising strength. The body is still not finalized due to not having all the other components' specs ready as of now, but plans and precautions are made to make sure that future designs will still fit the set frame specification.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{FrameDesign.png}
+   
+    \caption{Current Design of The Frame}
+    \label{fig:wiring_diagram}
+\end{figure}
+
+\subsection{Material Properties for Simulation}
+The Finite Element Analysis was conducted using the specific properties of Carbon Fiber (230 GPa), as detailed in Table \ref{tab:material_props}. These anisotropic properties are crucial for an accurate simulation.
+
+\begin{table}[H]
+    \centering
+    \caption{Carbon Fiber (230 GPa) Properties used in ANSYS}
+    \label{tab:material_props}
+    \begin{tabular}{l l}
+        \toprule
+        \textbf{Property} & \textbf{Value} \\
+        \midrule
+        Density & \SI{1800}{\kilo\gram\per\cubic\meter} \\
+        \addlinespace
+        \multicolumn{2}{l}{\textbf{Orthotropic Elasticity}} \\
+        Young's Modulus X & \SI{2.3e11}{\pascal} \\
+        Young's Modulus Y & \SI{2.3e10}{\pascal} \\
+        Young's Modulus Z & \SI{2.3e10}{\pascal} \\
+        Poisson's Ratio XY & 0.2 \\
+        Poisson's Ratio YZ & 0.4 \\
+        Poisson's Ratio XZ & 0.2 \\
+        Shear Modulus XY & \SI{9e9}{\pascal} \\
+        Shear Modulus YZ & \SI{8.2143e9}{\pascal} \\
+        Shear Modulus XZ & \SI{9e9}{\pascal} \\
+        \addlinespace
+        \multicolumn{2}{l}{\textbf{Orthotropic Stress Limits}} \\
+        Tensile Strength X & \SI{3.5e9}{\pascal} \\
+        Tensile Strength Y & \SI{5e7}{\pascal} \\
+        Compressive Strength X & \SI{-2e9}{\pascal} \\
+        Compressive Strength Y & \SI{-1.5e8}{\pascal} \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{Structural Validation through Finite Element Analysis (FEA)}
+To verify the design's integrity, a suite of FEA simulations was performed by Dinh Thanh Ha using ANSYS with an orthotropic carbon fiber material model.
+
+\paragraph{Static Structural Analysis:}
+This test simulated the loads during a stable hover. The maximum deformation was found to be a negligible \textbf{\SI{0.164}{\milli\meter}}, confirming the frame's exceptional stiffness. The maximum von Mises stress was only \textbf{\SI{1.79}{\mega\pascal}}, indicating a very high factor of safety under operational loads.
+
+\paragraph{Explicit Dynamics Analysis (Drop Test):}
+A simulated drop test was performed to assess crashworthiness. The peak stress during impact was only \textbf{\SI{35.8}{\kilo\pascal}}, far below the material's failure limit. This result provides high confidence that the frame will survive hard landings and minor crashes without structural damage.
+
+\paragraph{Modal Analysis:}
+This analysis identified the frame's natural resonant frequencies to prevent destructive vibrations. The first significant structural mode was found at \textbf{81.8 Hz}, which is well above the typical operational frequencies of the motors. This separation ensures a dynamically stable platform, which is critical for clean sensor data and smooth video.
+
+\paragraph{Topology Optimization:}
+An optimization analysis was run to identify non-essential material for future weight reduction. The result provided a conceptual layout for a lighter, more efficient truss-like structure, which will inform the design of our next prototype.
+
+\subsection{Challenge and Strategy}
+In the process of frame design and simulation, several challenges were encountered that required innovative solutions to ensure both efficiency and effectiveness in our designs. One of the most important ones was optimizing the frame's weight while maintaining its structural integrity. This balance is crucial, as reducing weight by adding more open spots on the frame can cause it to suffer in the simulation tests.
+
+To address this issue, we opted for the age-old method of "trial and error". With the help of the results from the simulations pointing out precise weak and strong points on the frame, changes can be made to it that will then be tested again  for further optimization
+
+%=============== SECTION 4: SENSOR AND CONTROL SYSTEMS ===============
+\section{Sensor and Control Systems}
+\subsection{Sensor Fusion Stability}
+The stability of sensor data acquisition is paramount. Duong Nghiep Quy analyzed polling versus interrupt-driven architectures. The results clearly showed that an interrupt-driven (ISR) approach provides a much tighter sampling time distribution and significantly lower filter error (MSE of 0.05 vs 0.23 for polling). Therefore, a mandatory interrupt-driven architecture will be implemented to ensure timely and reliable sensor data for the flight controller.
+
+\subsection{Power Management and Bus Communication}
+Led by Le Quang Nhat, the power budget analysis identified the propulsion system as the main consumer (\textasciitilde\SI{230}{\watt} max). To optimize flight time, strategies such as duty cycling non-critical sensors and dynamic voltage/frequency scaling (DVFS) for the MCU will be employed. This involves keeping the IMU at its full rate for tight control while reducing the sampling rate of components like the barometer during stable flight.
+
+%======================================================================
+%=============== SECTION 5: ELECTRONICS INTEGRATION ===============
+%======================================================================
+\section{Electronics Integration and Implementation}
+
+\subsection{System Architecture}
+The electronic and software architecture, developed by Duong Nghiep Quy, is designed for robustness and real-time performance. It employs a dual-process model to ensure that flight-critical tasks are never delayed by lower-priority operations.
+
+\paragraph{Software Design:} The architecture is bifurcated into two main components:
+\begin{itemize}
+    \item \textbf{Background Loop (High Priority, Interrupt-Driven):}  This process is triggered by a high-frequency hardware timer interrupt (e.g., every 2 milliseconds) 
+    \begin{enumerate}
+        \item Reading raw data from the Inertial Measurement Unit (IMU).
+        \item Applying a state estimation algorithm (e.g., Complementary Filter) to fuse accelerometer and gyroscope data into a stable orientation estimate.
+        \item Executing the PID (Proportional-Integral-Derivative) control loops for roll, pitch, and yaw to calculate the required motor outputs.
+        \item Configuring and sending the appropriate PPM (Pulse Position Modulation) signals to the four Electronic Speed Controllers (ESCs).
+    \end{enumerate}
+    \item \textbf{Foreground Process (Low Priority):}. This is a sequential, infinite loop that:
+    \begin{itemize}
+        \item Updating the status of onboard LEDs for visual feedback.
+        \item Sending telemetry data (e.g., attitude, battery voltage) to a ground station or remote control.
+    \end{itemize}
+\end{itemize}
+
+\paragraph{Hardware Integration Plan:} The physical components are interconnected as shown in the conceptual diagram (Figure \ref{fig:electronics_plan}). The microcontroller serves as the central hub, communicating with the IMU via the I2C bus, receiving pilot commands from the FS-iA6B receiver via PPM, and commanding the four ESCs, which in turn drive the brushless motors.
+
+%--- Placeholder for the electronics integration diagram ---
+\begin{figure}[H]
+    \centering
+     \includegraphics[width=0.7\textwidth]{HardWare&SoftWareSetup.png}
+    
+    \caption{A conceptual diagram illustrating the interconnection of hardware components and the dual-process software architecture.}
+    \label{fig:electronics_plan}
+\end{figure}
+
+\subsection{Initial Implementation and Verification}
+Before full assembly, initial benchtop tests were conducted by Duong Nghiep Quy and Le Quang Nhat to verify the functionality of the core electronic components.
+\begin{itemize}
+    \item \textbf{Components Tested:} Microcontroller (Arduino platform), MPU-6050 IMU, and Flysky FS-i6 transmitter with FS-iA6B receiver.
+    \item \textbf{Procedure:} The components were wired together on a breadboard. Code was written to read the raw accelerometer and gyroscope data from the IMU and to interpret the PPM signal stream from the receiver.
+    \item \textbf{Results:} The tests were successful. Data from the IMU and control channel values (roll, pitch, yaw, throttle) from the receiver were correctly read and visualized in real-time using the Arduino IDE's serial plotter.
+\end{itemize}
+
+%--- Placeholder for implementation photos ---
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{HarwareTesting.png}
+   
+    \caption{The initial test setup showing the microcontroller, IMU, and receiver connected, with data being monitored on a laptop.}
+    \label{fig:implementation}
+\end{figure}
+
+\section{Challenges and Strategies}
+
+We have identified several potential challenges and have formulated proactive strategies to mitigate them.
+
+\begin{itemize}{\textbf{Challenge: Communication Issues (EM Noise)}}]
+
+    \item \textbf{Challenge: Stability and PID Tuning}
+        \begin{itemize}
+            \item \textit{Identification:} Achieving stable flight is highly dependent on correctly tuning the PID controller. Improper gains can lead to uncontrollable oscillations or sluggish response.
+            \item \textit{Strategy:} We will employ a systematic, multi-stage tuning process on a secure test stand. Each axis will be tuned independently, starting with the P gain for basic stability, followed by D to dampen overshoot, and I to correct for drift.
+        \end{itemize}
+
+    \item \textbf{Challenge: Weight Balance and Management}
+        \begin{itemize}
+            \item \textit{Identification:} An improperly balanced quadcopter, where the Center of Gravity (CoG) is not at the geometric center, will lead to inefficiency and poor flight performance.
+            \item \textit{Strategy:} The component layout has been planned in CAD to centralize mass. During assembly, we will carefully place components to achieve a neutral balance point.
+        \end{itemize}
+
+    \item \textbf{Challenge: Communication Issues (EM Noise)}
+        \begin{itemize}
+            \item \textit{Identification:} High-frequency switching in the ESCs can generate electromagnetic interference (EMI) that corrupts sensor data, leading to erratic flight.
+            \item \textit{Strategy:} Our primary solution is a proper physical layout, maximizing the distance between power electronics and the flight controller. Power and signal lines will be routed separately, and signal wires may be twisted to reduce noise susceptibility.
+        \end{itemize}
+        
+\end{itemize}
+%======================================================================
+%=============== SECTION 7: CONCLUSION AND FUTURE WORK ===============
+%======================================================================
+\section{Conclusion and Future Work}
+
+\subsection{Summary of Progress}
+To date, this project has successfully moved from concept to a fully validated virtual prototype. Key accomplishments include the establishment of clear performance requirements, the completion of a detailed CAD model, and the comprehensive validation of the frame's structural and dynamic properties through extensive FEA simulations. Furthermore, a robust system architecture has been defined and the functionality of core electronic components has been verified. A strong engineering foundation is now in place for the physical construction phase.
+
+\subsection{Next Steps}
+The path forward will focus on translating the validated design into a functional prototype. The immediate next steps are:
+
+\begin{enumerate}
+    \item \textbf{Manufacturing and Assembly:} Fabricate the carbon fiber frame and 3D-print components, followed by complete hardware assembly.
+    
+    \item \textbf{Software Implementation and Tuning:} Implement the full flight control software (state estimation and PID loops) and systematically tune the PID controllers on a test stand.
+    
+    \item \textbf{Flight Testing and Validation:} Execute a tiered flight test plan to validate the quadcopter's performance against the project requirements.
+    
+    \item \textbf{Payload Integration:} Integrate the \SI{0.5}{\kilo\gram} payload and conduct final flight tests to confirm all objectives, including endurance, are met.
+\end{enumerate}
+
+%=============== REFERENCES and APPENDICES ===============
+\end{document}
