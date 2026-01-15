@@ -1,0 +1,31 @@
+\babel@toc {english}{}\relax 
+\contentsline {section}{\numberline {1}Introduction}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Project Context and Objectives}{3}{subsection.1.1}%
+\contentsline {section}{\numberline {2}Work Distribution}{3}{section.2}%
+\contentsline {section}{\numberline {3}Requirements and Specifications}{4}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Performance Requirements}{4}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Component Specifications}{4}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}Frame Specifications}{4}{subsubsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2}Propeller Specifications}{4}{subsubsection.3.2.2}%
+\contentsline {section}{\numberline {4}Frame Design and Detailed Simulation}{5}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Inspiration and initial design}{5}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}CAD Design Process}{5}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Material Properties for Simulation}{5}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Structural Validation through Finite Element Analysis (FEA)}{6}{subsection.4.4}%
+\contentsline {paragraph}{Static Structural Analysis:}{6}{section*.6}%
+\contentsline {paragraph}{Explicit Dynamics Analysis (Drop Test):}{6}{section*.7}%
+\contentsline {paragraph}{Modal Analysis:}{6}{section*.8}%
+\contentsline {paragraph}{Topology Optimization:}{7}{section*.9}%
+\contentsline {subsection}{\numberline {4.5}Challenge and Strategy}{7}{subsection.4.5}%
+\contentsline {section}{\numberline {5}Sensor and Control Systems}{7}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Sensor Fusion Stability}{7}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Power Management and Bus Communication}{7}{subsection.5.2}%
+\contentsline {section}{\numberline {6}Electronics Integration and Implementation}{8}{section.6}%
+\contentsline {subsection}{\numberline {6.1}System Architecture}{8}{subsection.6.1}%
+\contentsline {paragraph}{Software Design:}{8}{section*.10}%
+\contentsline {paragraph}{Hardware Integration Plan:}{8}{section*.11}%
+\contentsline {subsection}{\numberline {6.2}Initial Implementation and Verification}{8}{subsection.6.2}%
+\contentsline {section}{\numberline {7}Challenges and Strategies}{9}{section.7}%
+\contentsline {section}{\numberline {8}Conclusion and Future Work}{9}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Summary of Progress}{9}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Next Steps}{10}{subsection.8.2}%
